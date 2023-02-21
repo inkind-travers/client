@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { createBrowserRouter, Route, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/Home";
+import ListsGenerator from "./pages/ListsGenerator";
+import SubscribedTicketsCreate from "./components/SubscribedLists/SubscribedTicketsCreate";
+import SubscribedTicketsEdit from "./components/SubscribedLists/SubscribedTicketsEdit";
+import SubscribedTicketsCreateV2 from "./components/SubscribedLists/SubscribedTicketsCreateV2"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import RootLayout from "./pages/Root";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/lists-generator", element: <ListsGenerator /> },
+      { path: "/lists-generator/create", element: <SubscribedTicketsCreateV2 /> },
+      { path: "/edit/:id", element: <SubscribedTicketsEdit /> },
+    ]
+  },
+]);
+
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;
